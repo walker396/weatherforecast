@@ -58,6 +58,7 @@ CREATE TABLE `plan_detail` (
   KEY `FKp1kr1t9wkuv6a4mutk2wjsma5` (`itinerary_id`),
   CONSTRAINT `FKp1kr1t9wkuv6a4mutk2wjsma5` FOREIGN KEY (`itinerary_id`) REFERENCES `itinerary` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -------------------
 Run frontend service on the command:
  yarn start
