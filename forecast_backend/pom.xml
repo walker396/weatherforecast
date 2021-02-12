@@ -218,6 +218,7 @@
                 <configuration>
                     <fork>true</fork>
                     <addResources>true</addResources>
+                    <mainClass>com.complexica.itinerary.TravelPlanApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
