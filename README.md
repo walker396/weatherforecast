@@ -1,12 +1,6 @@
 # weatherforecast
 weatherforecast
 
-**(2020/06/20) Update: Tips for possible issues**
-
-"SRL prediction mismatches the provided samples"
-
-The POS tags are slightly different using different spaCy versions.  SemBERT used spacy==2.0.18 to obtain the verbs.
-
 
 =========================================
 
