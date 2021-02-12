@@ -20,7 +20,6 @@
     <description>travel planner who needs to create a 3 city itinerary for a client</description>
     <properties>
         <java.version>1.8</java.version>
-        <jedis.version>2.9.0</jedis.version>
         <log4jdbc.version>1.16</log4jdbc.version>
         <swagger.version>2.9.2</swagger.version>
         <fastjson.version>1.2.54</fastjson.version>
@@ -81,11 +80,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
-        <!-- redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+
         <!--Spring boot end-->
 
         <!--spring2.0 integer redis's common-pool2-->
@@ -165,12 +160,7 @@
             <version>${druid.version}</version>
         </dependency>
 
-        <!--lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+
 
         <!--tools-->
         <dependency>
@@ -218,6 +208,7 @@
                 <configuration>
                     <fork>true</fork>
                     <addResources>true</addResources>
+                    <mainClass>com.complexica.itinerary.TravelPlanApplication</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
