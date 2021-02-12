@@ -1,0 +1,52 @@
+server:
+  port: 8000
+
+spring:
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+  #Configuration Jpa
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: true
+
+  redis:
+    #Database Index
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: 123456
+    #Connection timeout
+    timeout: 5000
+    lettuce:
+      pool:
+        # The maximum number of connections in the connection pool (use a negative value to indicate no limit) Default 8
+        max-active: 2
+        # Connection pool maximum blocking waiting time (use a negative value to indicate no limit) Default -1
+        max-wait: -1ms
+        # The maximum idle connection in the connection pool is 8 by default
+        max-idle: 2
+          # The smallest idle connection in the connection pool default 0
+        min-idle: 0
+  cache:
+    # Generally speaking, there is no need to configure, Spring Cache will assemble itself
+    # according to the dependent package
+    type: redis
+
+
+  devtools:
+    restart:
+      enabled: true
+weather: # weather api url
+  url: http://api.openweathermap.org/data/2.5
+  key:
+
+
