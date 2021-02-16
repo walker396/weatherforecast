@@ -24,78 +24,78 @@ import static org.springframework.http.HttpStatus.*;
 public class GlobalExceptionHandler {
 
     /**
-     * 处理所有不可知的异常
+     * Handle all unknowable exceptions
      * @param e
      * @return
      */
     @ExceptionHandler(Throwable.class)
     public ResponseEntity handleException(Throwable e){
-        // 打印堆栈信息
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         ApiError apiError = new ApiError(BAD_REQUEST.value(),e.getMessage());
         return buildResponseEntity(apiError);
     }
 
     /**
-     * 处理 接口无权访问异常AccessDeniedException
+     * Handling AccessDeniedException AccessDeniedException
      * @param e
      * @return
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity handleAccessDeniedException(AccessDeniedException e){
-        // 打印堆栈信息
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         ApiError apiError = new ApiError(FORBIDDEN.value(),e.getMessage());
         return buildResponseEntity(apiError);
     }
 
     /**
-     * 处理自定义异常
+     * Handling custom exceptions
      * @param e
      * @return
      */
-	@ExceptionHandler(value = BadRequestException.class)
-	public ResponseEntity<ApiError> badRequestException(BadRequestException e) {
-        // 打印堆栈信息
+    @ExceptionHandler(value = BadRequestException.class)
+    public ResponseEntity<ApiError> badRequestException(BadRequestException e) {
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         ApiError apiError = new ApiError(e.getStatus(),e.getMessage());
         return buildResponseEntity(apiError);
-	}
+    }
 
     /**
-     * 处理 EntityExist
+     * Handling EntityExist
      * @param e
      * @return
      */
     @ExceptionHandler(value = EntityExistException.class)
     public ResponseEntity<ApiError> entityExistException(EntityExistException e) {
-        // 打印堆栈信息
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         ApiError apiError = new ApiError(BAD_REQUEST.value(),e.getMessage());
         return buildResponseEntity(apiError);
     }
 
     /**
-     * 处理 EntityNotFound
+     * Handling EntityNotFound
      * @param e
      * @return
      */
     @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<ApiError> entityNotFoundException(EntityNotFoundException e) {
-        // 打印堆栈信息
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         ApiError apiError = new ApiError(NOT_FOUND.value(),e.getMessage());
         return buildResponseEntity(apiError);
     }
 
     /**
-     * 处理所有接口数据验证异常
+     * Handle all interface data verification exceptions
      * @param e
      * @returns
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
-        // 打印堆栈信息
+        // Print stack information
         log.error(ThrowableUtil.getStackTrace(e));
         String[] str = e.getBindingResult().getAllErrors().get(0).getCodes()[1].split("\\.");
         StringBuffer msg = new StringBuffer(str[1]+":");
@@ -105,7 +105,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 统一返回
+     * Unified return
      * @param apiError
      * @return
      */

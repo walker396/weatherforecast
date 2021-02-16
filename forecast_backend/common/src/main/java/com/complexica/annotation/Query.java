@@ -7,51 +7,53 @@ import java.lang.annotation.Target;
 
 /**
  * @author Li He
- * @date 2019-6-4 13:52:30
+ * @date 2019-6-4
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Query {
 
-    /**  Li He 2017/8/7 基本对象的属性名 */
+    /** The attribute name of the base object */
     String propName() default "";
-    /**  Li He 2017/8/7 查询方式 */
+    /** Query function */
     Type type() default Type.EQUAL;
 
     /**
-     * 连接查询的属性名，如User类中的dept
+     * Connect the query attribution name, such as dept in the User class
      * @return
      */
     String joinName() default "";
 
     /**
-     * 默认左连接
+     * Default left connection
      * @return
      */
     Join join() default Join.LEFT;
 
     enum Type {
-        /** jie 2019/6/4 相等 */
+        /** Equal */
         EQUAL
-        /**  Li He 2017/8/7 大于等于 */
+        /** Greater or equal */
         , GREATER_THAN
-        /**  Li He 2017/8/7 小于等于 */
+        /** Less or equal */
         , LESS_THAN
-        /**  Li He 2017/8/7 中模糊查询 */
+        /** Inner fuzzy query */
         , INNER_LIKE
-        /**  Li He 2017/8/7 左模糊查询 */
+        /** Left fuzzy query */
         , LEFT_LIKE
-        /**  Li He 2017/8/7 右模糊查询 */
+        /** Right fuzzy query */
         , RIGHT_LIKE
-        /**  Li He 2017/8/7 小于 */
+        /** Less than */
         , LESS_THAN_NQ
-        //** jie 2019/6/4 包含 */
+        //** Include */
         , IN
     }
 
     /**
      * @author Li He
-     * 适用于简单连接查询，复杂的请自定义该注解，或者使用sql查询
+     * Suitable for simple connection query,
+     * please customize the annotation for complex,
+     * or use sql query
      */
     enum Join {
         /** jie 2019-6-4 13:18:30 左连接 */

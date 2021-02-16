@@ -17,22 +17,22 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Limit {
 
-    // 资源名称，用于描述接口功能
+    // Resource name, used to describe the interface function
     String name() default "";
 
-    // 资源 key
+    // resource key
     String key() default "";
 
     // key prefix
     String prefix() default "";
 
-    // 时间的，单位秒
+    // time, in seconds
     int period();
 
-    // 限制访问次数
+    // Limit the number of visits
     int count();
 
-    // 限制类型
+    // restriction type
     LimitType limitType() default LimitType.CUSTOMER;
 
 }

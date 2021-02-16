@@ -32,7 +32,10 @@ public class Itinerary implements Serializable {
     @Column(name = "id")
     @NotNull(groups = PlanDetail.Update.class)
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name",
+            nullable = false,
+            columnDefinition = "TEXT"
+    )
     private String name;
     @Column(name = "user_id")
     private Long userId;

@@ -71,30 +71,4 @@ public class WeatherController {
             return new ResponseEntity(weathers,HttpStatus.OK);
         }
     }
-
-   /* @Log("New IssuesInfo")
-    @ApiOperation(value = "New IssuesInfo")
-    @PostMapping(value = "/issuesInfo")
-    @PreAuthorize("hasAnyRole('ADMIN','ISSUESINFO_ALL','ISSUESINFO_CREATE')")
-    public ResponseEntity create(@Validated @RequestBody IssuesInfo resources){
-        return new ResponseEntity(issuesInfoService.create(resources),HttpStatus.CREATED);
-    }
-
-    @Log("Update IssuesInfo")
-    @ApiOperation(value = "Update IssuesInfo")
-    @PutMapping(value = "/issuesInfo")
-    @PreAuthorize("hasAnyRole('ADMIN','ISSUESINFO_ALL','ISSUESINFO_EDIT')")
-    public ResponseEntity update(@Validated @RequestBody IssuesInfo resources){
-        issuesInfoService.update(resources);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
-    @Log("Delete IssuesInfo")
-    @ApiOperation(value = "Delete IssuesInfo")
-    @DeleteMapping(value = "/issuesInfo/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN','ISSUESINFO_ALL','ISSUESINFO_DELETE')")
-    public ResponseEntity delete(@PathVariable Integer id){
-        issuesInfoService.delete(id);
-        return new ResponseEntity(HttpStatus.OK);
-    }*/
 }
