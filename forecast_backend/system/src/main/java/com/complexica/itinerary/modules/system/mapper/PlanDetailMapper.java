@@ -10,7 +10,7 @@ import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring",uses = {ItineraryMapper.class})
 public interface PlanDetailMapper extends EntityMapper<PlanDetailDTO, PlanDetail> {
 //    @Mapping(source = "itinerary.id", target = "itinerary.id")
 //    PlanDetail toEntity(List<PlanDetailDTO> itineraryDTO);

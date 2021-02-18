@@ -4,14 +4,14 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
- * 异常工具
+ * Exception tool
  * @author Li He
  * @date 2019-01-06
  */
 public class ThrowableUtil {
 
     /**
-     * 获取堆栈信息
+     * Get stack information
      * @param throwable
      * @return
      */

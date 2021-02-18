@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.complexica.itinerary.modules.system.model.Weather;
 import com.complexica.itinerary.modules.system.service.WeatherService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  * @author Li He
  * @date 2021-02-10
  */
+@Api(tags = "Weather broadcast")
 @RestController
 @RequestMapping("weather")
 public class WeatherController {
@@ -36,7 +38,7 @@ public class WeatherController {
 
 
 
-    @Resource
+    @Autowired
     private RedisTemplate<Object, Object> redisCacheTemplate;
 
     /**

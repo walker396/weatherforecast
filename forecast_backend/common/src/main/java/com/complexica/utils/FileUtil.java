@@ -8,43 +8,43 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 /**
- * File工具类，扩展 hutool 工具包
+ * File tool class, extend the hutool toolkit
  * @author Li He
  * @date 2018-12-27
  */
 public class FileUtil extends cn.hutool.core.io.FileUtil {
 
     /**
-     * 定义GB的计算常量
+     * Define the calculation constant for GB
      */
     private static final int GB = 1024 * 1024 * 1024;
     /**
-     * 定义MB的计算常量
+     * Define the calculation constant of MB
      */
     private static final int MB = 1024 * 1024;
     /**
-     * 定义KB的计算常量
+     * Define the calculation constant of KB
      */
     private static final int KB = 1024;
 
     /**
-     * 格式化小数
+     * Format decimal
      */
     private static final DecimalFormat DF = new DecimalFormat("0.00");
 
     /**
-     * MultipartFile转File
+     * MultipartFile to File
      * @param multipartFile
      * @return
      */
     public static File toFile(MultipartFile multipartFile){
-        // 获取文件名
+        // Get the file name
         String fileName = multipartFile.getOriginalFilename();
-        // 获取文件后缀
+        // Get the file suffix
         String prefix="."+getExtensionName(fileName);
         File file = null;
         try {
-            // 用uuid作为文件名，防止生成的临时文件重复
+            // Use uuid as the file name to prevent duplication of generated temporary files
             file = File.createTempFile(IdUtil.simpleUUID(), prefix);
             // MultipartFile to File
             multipartFile.transferTo(file);
@@ -55,11 +55,11 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 删除
+     * Delete
      * @param files
      */
     public static void deleteFile(File... files) {
-        for (File file : files) {
+        for (File file: files) {
             if (file.exists()) {
                 file.delete();
             }
@@ -67,14 +67,14 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 获取文件扩展名
+     * Get file extension
      * @param filename
      * @return
      */
     public static String getExtensionName(String filename) {
-        if ((filename != null) && (filename.length() > 0)) {
+        if ((filename != null) && (filename.length()> 0)) {
             int dot = filename.lastIndexOf('.');
-            if ((dot >-1) && (dot < (filename.length() - 1))) {
+            if ((dot >-1) && (dot <(filename.length()-1))) {
                 return filename.substring(dot + 1);
             }
         }
@@ -82,14 +82,14 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * Java文件操作 获取不带扩展名的文件名
+     * Java file operation Get the file name without extension
      * @param filename
      * @return
      */
     public static String getFileNameNoEx(String filename) {
-        if ((filename != null) && (filename.length() > 0)) {
+        if ((filename != null) && (filename.length()> 0)) {
             int dot = filename.lastIndexOf('.');
-            if ((dot >-1) && (dot < (filename.length()))) {
+            if ((dot >-1) && (dot <(filename.length()))) {
                 return filename.substring(0, dot);
             }
         }
@@ -97,23 +97,23 @@ public class FileUtil extends cn.hutool.core.io.FileUtil {
     }
 
     /**
-     * 文件大小转换
+     * File size conversion
      * @param size
      * @return
      */
     public static String getSize(int size){
         String resultSize = "";
         if (size / GB >= 1) {
-            //如果当前Byte的值大于等于1GB
-            resultSize = DF.format(size / (float) GB) + "GB   ";
+            //If the current Byte value is greater than or equal to 1GB
+            resultSize = DF.format(size / (float) GB) + "GB ";
         } else if (size / MB >= 1) {
-            //如果当前Byte的值大于等于1MB
-            resultSize = DF.format(size / (float) MB) + "MB   ";
+            //If the current Byte value is greater than or equal to 1MB
+            resultSize = DF.format(size / (float) MB) + "MB ";
         } else if (size / KB >= 1) {
-            //如果当前Byte的值大于等于1KB
-            resultSize = DF.format(size / (float) KB) + "KB   ";
+            //If the current Byte value is greater than or equal to 1KB
+            resultSize = DF.format(size / (float) KB) + "KB ";
         } else {
-            resultSize = size + "B   ";
+            resultSize = size + "B ";
         }
         return resultSize;
     }

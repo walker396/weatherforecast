@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,14 +20,14 @@ import java.util.Date;
  */
 
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name="plan_detail")
 public class PlanDetail  implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     @Id
-    @NotNull(groups = Update.class)
     private Long id;
 
     @Column(name="city_id")
@@ -50,10 +52,10 @@ public class PlanDetail  implements Serializable {
     private Integer orderId;
 
 
-    @Column(name="itinerary_id")
-    private Long itineraryId;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Itinerary itinerary;
 
-
+/*
     public Long getId() {
         return id;
     }
@@ -140,7 +142,7 @@ public class PlanDetail  implements Serializable {
 
     public void setItineraryId(Long itineraryId) {
         this.itineraryId = itineraryId;
-    }
+    }*/
 
     public @interface Update {}
 

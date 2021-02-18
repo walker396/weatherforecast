@@ -8,24 +8,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 分页工具
+ * Paging tool
  * @author Li He
  * @date 2018-12-10
  */
 public class PageUtil extends cn.hutool.core.util.PageUtil {
 
     /**
-     * List 分页
+     * List pagination
      * @param page
      * @param size
      * @param list
      * @return
      */
-    public static List toPage(int page, int size , List list) {
+    public static List toPage(int page, int size, List list) {
         int fromIndex = page * size;
         int toIndex = page * size + size;
 
-        if(fromIndex > list.size()){
+        if(fromIndex> list.size()){
             return new ArrayList();
         } else if(toIndex >= list.size()) {
             return list.subList(fromIndex,list.size());
@@ -35,7 +35,7 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
     }
 
     /**
-     * Page 数据处理，预防redis反序列化报错
+     * Page data processing to prevent redis deserialization errors
      * @param page
      * @return
      */

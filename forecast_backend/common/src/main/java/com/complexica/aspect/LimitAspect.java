@@ -1,11 +1,9 @@
 package com.complexica.aspect;
-
+import com.google.common.collect.ImmutableList;
 import com.complexica.annotation.Limit;
 import com.complexica.exception.BadRequestException;
 import com.complexica.utils.RequestHolder;
 import com.complexica.utils.StringUtils;
-import com.google.common.collect.ImmutableList;
-
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,17 +16,21 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 @Aspect
 @Component
 public class LimitAspect {
+
     @Autowired
-    private RedisTemplate redisTemplate;
+    private final RedisTemplate<Object,Object> redisTemplate;
+
     private static final Logger logger = LoggerFactory.getLogger(LimitAspect.class);
 
+    public LimitAspect(RedisTemplate<Object,Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     @Pointcut("@annotation(com.complexica.annotation.Limit)")
     public void pointcut() {
@@ -43,30 +45,28 @@ public class LimitAspect {
         LimitType limitType = limit.limitType();
         String key = limit.key();
         if (StringUtils.isEmpty(key)) {
-            switch (limitType) {
-                case IP:
-                    key = StringUtils.getIP(request);
-                    break;
-                default:
-                    key = signatureMethod.getName();
+            if (limitType == LimitType.IP) {
+                key = StringUtils.getIP(request);
+            } else {
+                key = signatureMethod.getName();
             }
         }
 
-        ImmutableList keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/","_")));
+        ImmutableList<Object> keys = ImmutableList.of(StringUtils.join(limit.prefix(), "_", key, "_", request.getRequestURI().replaceAll("/","_")));
 
         String luaScript = buildLuaScript();
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
-        Number count = (Number) redisTemplate.execute(redisScript, keys, limit.count(), limit.period());
+        Number count = redisTemplate.execute(redisScript, keys, limit.count(), limit.period());
         if (null != count && count.intValue() <= limit.count()) {
-            logger.info("第{}次访问key为 {}，描述为 [{}] 的接口", count, keys, limit.name());
+            logger.info("The {} times visited, key:{}，visited interface: [{}]", count, keys, limit.name());
             return joinPoint.proceed();
         } else {
-            throw new BadRequestException("访问次数受限制");
+            throw new BadRequestException("Access times are limited");
         }
     }
 
     /**
-     * 限流脚本
+     * flow limit script
      */
     private String buildLuaScript() {
         return "local c" +

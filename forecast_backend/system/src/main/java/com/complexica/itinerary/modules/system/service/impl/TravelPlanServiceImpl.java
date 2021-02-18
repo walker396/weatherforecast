@@ -8,9 +8,13 @@ import com.complexica.itinerary.modules.system.model.PlanDetail;
 import com.complexica.itinerary.modules.system.repository.PlanDetailRespository;
 import com.complexica.itinerary.modules.system.repository.TravelPlanRespository;
 import com.complexica.itinerary.modules.system.service.TravelPlanService;
+import com.complexica.itinerary.modules.system.service.dto.ItineraryCriteria;
 import com.complexica.itinerary.modules.system.service.dto.ItineraryDTO;
 import com.complexica.itinerary.modules.system.mapper.PlanDetailMapper;
 import com.complexica.itinerary.modules.system.service.dto.ItineraryDetailDTO;
+import com.complexica.itinerary.modules.system.service.dto.PlanDetailCriteria;
+import com.complexica.utils.QueryHelp;
+import com.complexica.utils.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +54,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     private ItineraryDetailsMapper itineraryDetailsMapper;
 
 
-    @Override
+    /*@Override
     public Map findAll(int page, int pageSize) {
 //        List<ItineraryDetailDTO> views = new ArrayList<>();
 
@@ -83,7 +87,7 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         map.put("total", pages.getTotalElements());//记录总条数
         map.put("current_page", pages.getNumber());//当前页码
         return map;
-    }
+    }*/
 
     @Override
     public Map findAllItinerarys(int page, int pageSize) {
@@ -94,6 +98,13 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         map.put("total", result.getTotalElements());//total number of record
         map.put("current_page", result.getNumber());//currrent pageno
         return map;
+    }
+
+
+    public List<Itinerary> findItinerarysByName(ItineraryCriteria criteria){
+        return itineraryMapper.toDto(travelPlanRespository.findAll(
+                (root, criteriaQuery, criteriaBuilder) ->
+                        QueryHelp.getPredicate(root,criteria,criteriaBuilder)));
     }
 
     @Override
@@ -114,6 +125,19 @@ public class TravelPlanServiceImpl implements TravelPlanService {
         return map;
     }
 
+    @Override
+    public Map getItineraryDetailByCriteria(PlanDetailCriteria criteria, int page, int pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.Direction.ASC, "weatherDate","city","weatherTime");
+        Page result=planDetailRespository.findAll(
+                (root, criteriaQuery, criteriaBuilder) ->
+                        QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        Map map = new HashMap();
+        map.put("list",  result.getContent());//data list
+        map.put("total", result.getTotalElements());//total number of record
+        map.put("current_page", result.getNumber());//currrent pageno
+        return map;
+    }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -124,15 +148,31 @@ public class TravelPlanServiceImpl implements TravelPlanService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(Itinerary resources) {
+        Optional<Itinerary> optionalItinerary = travelPlanRespository.findById(resources.getId());
+        ValidationUtil.isNull( optionalItinerary,"Itinerary","id",resources.getId());
+
+        Itinerary itinerary = optionalItinerary.get();
+        resources.setId(itinerary.getId());
+        travelPlanRespository.save(resources);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long id) {
+        Optional<Itinerary> optionalItinerary= travelPlanRespository.findById(id);
+        ValidationUtil.isNull( optionalItinerary,"Itinerary","id",id);
+        travelPlanRespository.deleteById(id);
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(List<PlanDetail> planDetails) {
         planDetailRespository.saveAll(planDetails);
     }
 
-    @Override
-    public void delete(Long id) {
-//        List<Itinerary> dtos = planDetailMapper.toDto(resources);
-        travelPlanRespository.deleteById(id);
-    }
 
 
 }

@@ -3,34 +3,36 @@ package com.complexica.mapper;
 import java.util.List;
 
 /**
+ * Transformation between the entity and dto
  * @author Li He
  * @date 2018-11-23
+ *
  */
 public interface EntityMapper<D, E> {
 
     /**
-     * DTO转Entity
+     * DTO to Entity
      * @param dto
      * @return
      */
     E toEntity(D dto);
 
     /**
-     * Entity转DTO
+     * Entity to DTO
      * @param entity
      * @return
      */
     D toDto(E entity);
 
     /**
-     * DTO集合转Entity集合
+     * DTO list to Entity list
      * @param dtoList
      * @return
      */
     List <E> toEntity(List<D> dtoList);
 
     /**
-     * Entity集合转DTO集合
+     * Entity list to DTO list
      * @param entityList
      * @return
      */

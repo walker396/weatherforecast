@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Itinerary Bean
@@ -23,14 +24,14 @@ import java.util.List;
  * @date 2021-02-10
  */
 @Entity
-@Data
+@Setter
+@Getter
 @Table(name="itinerary")
 public class Itinerary implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NotNull(groups = PlanDetail.Update.class)
     private Long id;
     @Column(name = "name",
             nullable = false,
@@ -46,10 +47,12 @@ public class Itinerary implements Serializable {
     @CreationTimestamp
     private Date createTime;
 
+    @OneToMany(mappedBy = "itinerary",cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    private Set<PlanDetail> planDetails;
 
 
-
-    public Itinerary() {
+    /*public Itinerary() {
     }
 
     public Itinerary(String name, Long userId, String status, Date createTime) {
@@ -97,7 +100,7 @@ public class Itinerary implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
-    }
+    }*/
 
 
     public void copy(Itinerary source){

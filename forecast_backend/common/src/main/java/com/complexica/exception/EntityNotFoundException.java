@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 /**
  * @author Li He
  * @date 2018-11-23
+ * The exception of the entity not found
  */
 public class EntityNotFoundException extends RuntimeException {
 
@@ -18,7 +19,7 @@ public class EntityNotFoundException extends RuntimeException {
 
     private static String generateMessage(String entity, Map<String, String> searchParams) {
         return StringUtils.capitalize(entity) +
-                " 不存在 " +
+                " not found " +
                 searchParams;
     }
 

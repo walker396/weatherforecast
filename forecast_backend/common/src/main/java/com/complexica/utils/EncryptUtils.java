@@ -9,7 +9,7 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
 /**
- * 加密
+ * Encryption
  * @author Li He
  * @date 2018-11-23
  */
@@ -18,7 +18,7 @@ public class EncryptUtils {
     private static String strKey = "Passw0rd", strParam = "Passw0rd";
 
     /**
-     * 对称加密
+     * Symmetric encryption
      * @param source
      * @return
      * @throws Exception
@@ -40,10 +40,10 @@ public class EncryptUtils {
     public static String byte2hex(byte[] inStr) {
         String stmp;
         StringBuffer out = new StringBuffer(inStr.length * 2);
-        for (int n = 0; n < inStr.length; n++) {
+        for (int n = 0; n <inStr.length; n++) {
             stmp = Integer.toHexString(inStr[n] & 0xFF);
             if (stmp.length() == 1) {
-                // 如果是0至F的单位字符串，则添加0
+                // If it is a unit string from 0 to F, add 0
                 out.append("0" + stmp);
             } else {
                 out.append(stmp);
@@ -54,11 +54,11 @@ public class EncryptUtils {
 
 
     public static byte[] hex2byte(byte[] b) {
-        if ((b.length % 2) != 0){
-            throw new IllegalArgumentException("长度不是偶数");
+        if ((b.length% 2) != 0){
+            throw new IllegalArgumentException("The length is not even");
         }
         byte[] b2 = new byte[b.length / 2];
-        for (int n = 0; n < b.length; n += 2) {
+        for (int n = 0; n <b.length; n += 2) {
             String item = new String(b, n, 2);
             b2[n / 2] = (byte) Integer.parseInt(item, 16);
         }
@@ -66,7 +66,7 @@ public class EncryptUtils {
     }
 
     /**
-     * 对称解密
+     * Symmetrical decryption
      * @param source
      * @return
      * @throws Exception
@@ -87,11 +87,11 @@ public class EncryptUtils {
     }
 
     /**
-     * 密码加密
+     * Password encryption
      * @param password
      * @return
      */
     public static String encryptPassword(String password){
-        return  DigestUtils.md5DigestAsHex(password.getBytes());
+        return DigestUtils.md5DigestAsHex(password.getBytes());
     }
 }

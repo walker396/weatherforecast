@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * api页面 /swagger-ui.html
+ * api page /swagger-ui.html
  * @author Li He
  * @date 2018-11-23
  */
@@ -55,7 +55,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("eladmin 接口文档")
+                .title("Itinerary Interface document")
                 .version("1.0")
                 .build();
     }

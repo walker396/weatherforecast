@@ -5,6 +5,8 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import com.complexica.itinerary.modules.system.model.Itinerary;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,16 +20,21 @@ import java.util.Date;
 @NoArgsConstructor
 public class PlanDetailDTO implements Serializable {
 
+    @NotNull
     private Long id;
-
+    @NotBlank
     private String cityId;
+    @NotBlank
     private String city;
+    @NotBlank
     private String country;
+    @NotNull
     private Date weatherDate;
+    @NotBlank
     private String weatherTime;
-
+    @NotBlank
     private String tempture;
-
+    @NotBlank
     private String weather;
     private Long user_id;
     private Integer orderId;

@@ -8,7 +8,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 /**
  * @author Li He
  * @date 2018-11-23
- * 统一异常处理
+ * Common bad request Exception
  */
 @Getter
 public class BadRequestException extends RuntimeException{

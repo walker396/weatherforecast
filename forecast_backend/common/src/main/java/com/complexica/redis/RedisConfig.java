@@ -30,14 +30,14 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @EnableCaching
-// 自动配置
+// auto configuration
 @ConditionalOnClass(RedisOperations.class)
 @EnableConfigurationProperties(RedisProperties.class)
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
-     *  设置 redis 数据默认过期时间，默认1天
-     *  设置@cacheable 序列化方式
+     * Set the default expiration time of redis data, the default is 1 day
+     * Set @cacheable serialization method
      * @return
      */
     @Bean
@@ -68,22 +68,19 @@ public class RedisConfig extends CachingConfigurerSupport {
     @ConditionalOnMissingBean(name = "redisTemplate")
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
-        //序列化
+        //Serialization
         FastJsonRedisSerializer fastJsonRedisSerializer = new FastJsonRedisSerializer(Object.class);
-        // value值的序列化采用fastJsonRedisSerializer
+        // The serialization of value uses fastJsonRedisSerializer
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
 
-        // 全局开启AutoType，不建议使用
-         ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
-        // 建议使用这种方式，小范围指定白名单
+        // Open AutoType globally, not recommended
+        ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+        // It is recommended to use this method to specify the whitelist in a small range
         ParserConfig.getGlobalInstance().addAccept("com.travel_plan.system");
         ParserConfig.getGlobalInstance().addAccept("com.travel_plan.modules.system.service.dto");
         ParserConfig.getGlobalInstance().addAccept("com.travel_plan.modules.system.domain");
-        ParserConfig.getGlobalInstance().addAccept("com.travel_plan.modules.quartz.domain");
-        ParserConfig.getGlobalInstance().addAccept("com.travel_plan.modules.monitor.domain");
-        ParserConfig.getGlobalInstance().addAccept("com.travel_plan.modules.security.security");
-        // key的序列化采用StringRedisSerializer
+        // The key serialization uses StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setConnectionFactory(redisConnectionFactory);
@@ -91,8 +88,8 @@ public class RedisConfig extends CachingConfigurerSupport {
     }
 
     /**
-     * 自定义缓存key生成策略
-     * 使用方法 @Cacheable(keyGenerator="keyGenerator")
+     * Custom cache key generation strategy
+     * How to use @Cacheable(keyGenerator="keyGenerator")
      * @return
      */
     @Bean

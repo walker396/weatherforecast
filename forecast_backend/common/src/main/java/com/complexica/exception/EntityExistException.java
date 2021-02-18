@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 /**
  * @author Li He
  * @date 2018-11-23
+ * The exception of the entity has existed
  */
 public class EntityExistException extends RuntimeException {
 

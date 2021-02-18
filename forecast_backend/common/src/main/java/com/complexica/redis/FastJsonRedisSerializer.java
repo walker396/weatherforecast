@@ -8,8 +8,7 @@ import org.springframework.data.redis.serializer.SerializationException;
 import java.nio.charset.Charset;
 
 /**
- * Value 序列化
- *
+ * Redis value serializer
  * @author /
  * @param <T>
  */

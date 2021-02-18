@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,10 +23,11 @@ import java.util.List;
 @Setter
 public class ItineraryDTO implements Serializable {
 
-
+    @NotNull
     private Long id;
-
+    @NotBlank
     private String name;
+    @NotNull
     private Long userId;
     private String status;
     private Date createTime;

@@ -16,7 +16,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     private static ApplicationContext applicationContext = null;
 
     /**
-     * 取得存储在静态变量中的ApplicationContext.
+     * Get the ApplicationContext stored in a static variable.
      */
     public static ApplicationContext getApplicationContext() {
         assertContextInjected();
@@ -24,7 +24,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+     * Obtain Bean from the static variable applicationContext and automatically transform it to the type of the assigned object.
      */
     public static <T> T getBean(String name) {
         assertContextInjected();
@@ -32,7 +32,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.
+     * Obtain Bean from the static variable applicationContext and automatically transform it into the type of the assigned object.
      */
     public static <T> T getBean(Class<T> requiredType) {
         assertContextInjected();
@@ -40,20 +40,20 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     }
 
     /**
-     * 检查ApplicationContext不为空.
+     * Check that the ApplicationContext is not empty.
      */
     private static void assertContextInjected() {
         if (applicationContext == null) {
-            throw new IllegalStateException("applicaitonContext属性未注入, 请在applicationContext" +
-                    ".xml中定义SpringContextHolder或在SpringBoot启动类中注册SpringContextHolder.");
+            throw new IllegalStateException("applicaitonContext attribute is not injected, please enter applicationContext" +
+                    "Define SpringContextHolder in .xml or register SpringContextHolder in SpringBoot startup class.");
         }
     }
 
     /**
-     * 清除SpringContextHolder中的ApplicationContext为Null.
+     * Clear the ApplicationContext in SpringContextHolder to Null.
      */
     public static void clearHolder() {
-        log.debug("清除SpringContextHolder中的ApplicationContext:"
+        log.debug("Clear ApplicationContext in SpringContextHolder:"
                 + applicationContext);
         applicationContext = null;
     }
@@ -66,7 +66,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         if (SpringContextHolder.applicationContext != null) {
-            log.warn("SpringContextHolder中的ApplicationContext被覆盖, 原有ApplicationContext为:" + SpringContextHolder.applicationContext);
+            log.warn("ApplicationContext in SpringContextHolder is overwritten, the original ApplicationContext is:" + SpringContextHolder.applicationContext);
         }
         SpringContextHolder.applicationContext = applicationContext;
     }
